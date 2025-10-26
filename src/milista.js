@@ -37,13 +37,13 @@ function MiLista (){
         },
         {
             id_incidencia: 4,
-            id_usuario: 'A',
-            titulo: "A",
-            descripcion: "A",
-            categoria: "A",
-            nivel_urgencia: "A",
-            fecha_registro: "A",
-            estado: "A",
+            id_usuario: 'A1',
+            titulo: "A1",
+            descripcion: "A1",
+            categoria: "A1",
+            nivel_urgencia: "A1",
+            fecha_registro: "A1",
+            estado: "A1",
             ubicacion: "A"
         },
         {
