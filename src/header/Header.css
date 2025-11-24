@@ -1,7 +1,40 @@
 
+/* Header background: dark radial gradient using purple and blue tones */
 #header{
-  background-color: black;
-  padding: 10px; 
-  text-align: center; 
-  color: white;
+  background: radial-gradient(circle at 20% 20%, #220033 0%, #12002a 45%, #00021a 100%);
+  padding: 20px;
+  text-align: center;
+  color: #f8f3ff;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+}
+
+#header h3{
+  margin: 0;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.4px;
+  display: inline-block;
+  padding: 10px 16px;
+  background: transparent;
+}
+
+.char{
+  display: inline-block;
+  transition: transform 0.18s ease, text-shadow 0.18s ease;
+  font-weight: 600;
+  color: #f0eef8;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.35);
+}
+
+.char.even{
+  color: #d9b3ff; 
+}
+
+.char.odd{
+  color: #bfe9ff; 
+}
+
+.char.space{
+  width: 0.45em;
 }
