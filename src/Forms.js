@@ -6,18 +6,16 @@ function Form(props) {
         event.preventDefault();
         const form = event.target;
 
-        const titulo = form.titulo.value.trim();
-        const usuario = form.usuario.value.trim();
-        const descripcion = form.descripcion.value.trim();
-        const categoria = form.categoria.value;
-        const nivel = form.nivel.value;
-        const ubicacion = form.ubicacion.value.trim();
-
-        if (props.agregarIncidencia) {
-            props.agregarIncidencia(usuario, titulo, descripcion, categoria, nivel, ubicacion);
-            form.reset();
+        props.agregarIncidencia(
+            form.email.value,
+            form.titulo.value,
+            form.descripcion.value,
+            form.categoria.value,
+            form.nivel.value,
+            form.ubicacion.value
+        );  
         }
-    }
+    
 
     return (
         <div className="bg-azul-pastel p-4 rounded">
@@ -27,8 +25,9 @@ function Form(props) {
                 <input type="text" name="titulo" placeholder="Título" required />
                 <br /><br />
 
-                <label>Usuario</label>
-                <input type="text" name="usuario" placeholder="ID usuario" required />
+                                
+                  <label>Email</label>
+                  <input className="text" type="email" name="email" required></input>
                 <br /><br />
 
                 <label>Descripción</label>
