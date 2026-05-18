@@ -3,10 +3,9 @@ import './login.css';
 import Fondo from './Imagenes/fondo.jpg';
 import Header from './header/header';
 import Footer from './footer/footer';
-import bcrypt from 'bcryptjs'; // ← NUEVO: para comparar contraseñas hasheadas
 
 function Login({ onLoginExitoso }) {
-  const USUARIO_API_URL = 'http://localhost:3210/users';
+  const LOGIN_API_URL = 'http://localhost:3210/login';
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,33 +18,22 @@ function Login({ onLoginExitoso }) {
     setCargando(true);
 
     try {
-      const response = await fetch(USUARIO_API_URL);
-      if (!response.ok) throw new Error("HTTP Error");
+      // PERSISTENCIA: Se hace post /login al server, este verifica y si esta bien devuelve los datos y un token que se pasan mediante la const onLoginexitoso
+      const response = await fetch(LOGIN_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
 
-      const usuarios = await response.json();
-
-      // Primero buscamos por email
-      const usuarioEncontrado = usuarios.find((u) => u.email === email);
-
-      if (usuarioEncontrado) {
-        let passwordCorrecta = false;
-
-        if (usuarioEncontrado.password.startsWith('$2')) {
-          const hashCompatible = usuarioEncontrado.password.replace(/^\$2y\$/, '$2a$');
-          passwordCorrecta = await bcrypt.compare(password, hashCompatible);
-        } else {
-          // Contraseña en texto plano (ej: usuario de pruebas)
-          passwordCorrecta = usuarioEncontrado.password === password;
-        }
-
-        if (passwordCorrecta) {
-          onLoginExitoso(usuarioEncontrado);
-        } else {
-          setError('Email o contraseña incorrectos.');
-        }
-      } else {
+      if (!response.ok) {
         setError('Email o contraseña incorrectos.');
+        return;
       }
+
+      const userData = await response.json();
+      onLoginExitoso(userData);
+      //////////////////////////////////////////////////////////////////////////
+
     } catch (e) {
       console.error("Error al iniciar sesión:", e);
       setError('No se pudo conectar con el servidor.');
