@@ -5,13 +5,14 @@ import Header from './header/header';
 import Footer from './footer/footer';
 import Form from './Forms';
 import Fondo from './Imagenes/fondo.jpg';
-import Login from './Login'; // ← NUEVO: importamos el componente de login
+import Login from './Login';
+import { jwtDecode } from "jwt-decode";
 
 function App() {
   const INCIDENCIA_API_URL = 'http://localhost:3210/incidencias';
   const USUARIO_API_URL = 'http://localhost:3210/users';
 
-  const [usuarioLogueado, setUsuarioLogueado] = useState(null); // ← NUEVO: estado del usuario
+  const [usuarioLogueado, setUsuarioLogueado] = useState(null);
   const [usuarios, setUsuarios] = useState([]);
   const [incidencias, setIncidencia] = useState([]);
 
@@ -43,6 +44,30 @@ function App() {
     obtenerIncidencias();
     obtenerUsuarios();
   }, []);
+
+  // PERSISTENCIA : cuando se carga la app se comprueba si hay token para si hay decodificarlo e iniciar sesion con el email
+  useEffect(() => {
+    const obtenerUsuarioLogueado = () => {
+      const savedToken = localStorage.getItem('authToken');
+      if (savedToken) {
+        const decodedUser = jwtDecode(savedToken);
+        console.log(decodedUser);
+        if (decodedUser) {
+          const user = usuarios.find((u) => u.email === decodedUser.email);
+          user ? setUsuarioLogueado(user) : setUsuarioLogueado(null);
+        }
+      }
+    };
+    obtenerUsuarioLogueado();
+  }, [usuarios]);
+  //////////////////////////////////////////////////////////////////////////
+
+  // PERSISTENCIA : Cuando se inicia sesion el server devuelve el token y los datos guardando solo el token por seguridad
+  const onLogin = (userData) => {
+    localStorage.setItem("authToken", JSON.stringify(userData["accessToken"]));
+    setUsuarioLogueado(userData.user);
+  };
+  //////////////////////////////////////////////////////////////////////////
 
   const agregarIncidencia = async (nuevo_usuario, nuevo_titulo, nuevo_descripcion, nuevo_categoria, nuevo_nivel_urgencia, nuevo_ubicacion) => {
     try {
@@ -86,27 +111,31 @@ function App() {
     }
   };
 
-  // ← NUEVO: si no hay usuario logueado, mostramos la pantalla de login
   if (!usuarioLogueado) {
-    return <Login onLoginExitoso={(u) => setUsuarioLogueado(u)} />;
+    return <Login onLoginExitoso={onLogin} />;
   }
 
-  // Si hay usuario logueado, mostramos la app normal
   return (
     <div style={{ backgroundImage: `url(${Fondo})`, backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundAttachment: "fixed", minHeight: "100vh" }}>
       <Header />
-      {/* ← NUEVO: mostramos el email del usuario logueado y botón de cerrar sesión */}
       <div className="d-flex justify-content-end pe-4 pt-2">
         <span style={{ color: "#f0f0f0" }} className="me-3">
           👤 {usuarioLogueado.email}
         </span>
+
+        {/* PERSISTENCIA : Al cerrar sesion se borra el token para que no se guarde el user */}
         <button
           className="btn btn-sm"
           style={{ backgroundColor: "#ee9a13ff", color: "#fff" }}
-          onClick={() => setUsuarioLogueado(null)}
+          onClick={() => {
+            localStorage.removeItem('authToken');
+            setUsuarioLogueado(null);
+          }}
         >
           Cerrar sesión
         </button>
+        {/*////////////////////////////////////////////////////////////////////////// */}
+
       </div>
       <h2 className="mb-4 text-center" style={{ color: "#f0f0f0" }}>Mi aplicación</h2>
       <div className="container-fluid mt-4 row">
