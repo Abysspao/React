@@ -6,7 +6,7 @@
         "id": 1,
         "nombre": "Ana",
         "email": "ana.lopez@educastur.org",
-        "password": "$2y$10$paOaxwKhEBC4W/cVeG85puc9W/hoMlzquXQ/6hrMD6VdqIc/mEToq",
+        "password": "$2a$12$.HdjO3/uhP8SbELRimjhaeDLkrZmNeP58aLpsbAZG/PCK2bcGXglm",
         "rol": {
           "id": 1,
           "nombre_rol": "comun",
@@ -508,6 +508,18 @@
       "nombre": "David",
       "email": "david.ruiz@educastur.org",
       "password": "$2y$10$WM.h8tqMhvbc//bQasC/0.l/xeQXEs83lcbvFnPzmbUwr5jWcShyW",
+      "rol": {
+        "id": 2,
+        "nombre_rol": "admin",
+        "descripcion": "Administrador del sistema con permisos totales"
+      },
+      "fecha_registro": "2025-10-21"
+    },
+    {
+      "id": 22,
+      "nombre": "David",
+      "email": "david@david.com",
+      "password": "$2a$12$wiLQeAKc2Vk7x.cfhE.oSuGv7RvRxC.sbe0gSyrwOV1UWEEKRLGU6",
       "rol": {
         "id": 2,
         "nombre_rol": "admin",
