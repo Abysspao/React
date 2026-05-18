@@ -6,7 +6,7 @@
         "id": 1,
         "nombre": "Ana",
         "email": "ana.lopez@educastur.org",
-        "password": "$2y$10$paOaxwKhEBC4W/cVeG85puc9W/hoMlzquXQ/6hrMD6VdqIc/mEToq",
+        "password": "$2a$12$.HdjO3/uhP8SbELRimjhaeDLkrZmNeP58aLpsbAZG/PCK2bcGXglm",
         "rol": {
           "id": 1,
           "nombre_rol": "comun",
@@ -23,6 +23,18 @@
       "fecha_registro": "2025-10-21",
       "comentarios": []
     },
+    {
+  "id": 33,
+  "nombre": "Test",
+  "email": "test@test.com",
+  "password": "1234",
+  "rol": {
+    "id": 2,
+    "nombre_rol": "admin",
+    "descripcion": "Administrador del sistema con permisos totales"
+  },
+  "fecha_registro": "2025-10-21"
+},
     {
       "id": 2,
       "usuario": {
@@ -250,6 +262,148 @@
       "fecha_registro": "2025-11-19",
       "estado": "Abierta",
       "ubicacion": "a302"
+    },
+    {
+      "usuarioId": 2,
+      "titulo": "a",
+      "descripcion": "v",
+      "categoria": "Software",
+      "nivel_urgencia": "Media",
+      "fecha_registro": "2025-12-13",
+      "ubicacion": "A302",
+      "estado": "Abierta",
+      "comentarios": [],
+      "id": 12
+    },
+    {
+      "usuarioId": 2,
+      "titulo": "a",
+      "descripcion": "v",
+      "categoria": "Software",
+      "nivel_urgencia": "Media",
+      "fecha_registro": "2025-12-13",
+      "ubicacion": "A302",
+      "estado": "Abierta",
+      "comentarios": [],
+      "id": 13
+    },
+    {
+      "usuarioId": 2,
+      "titulo": "a",
+      "descripcion": "v",
+      "categoria": "Software",
+      "nivel_urgencia": "Media",
+      "fecha_registro": "2025-12-13",
+      "ubicacion": "A302",
+      "estado": "Abierta",
+      "comentarios": [],
+      "id": 14
+    },
+    {
+      "usuarioId": 2,
+      "titulo": "a",
+      "descripcion": "v",
+      "categoria": "Software",
+      "nivel_urgencia": "Media",
+      "fecha_registro": "2025-12-13",
+      "ubicacion": "A302",
+      "estado": "Abierta",
+      "comentarios": [],
+      "id": 15
+    },
+    {
+      "usuarioId": 2,
+      "titulo": "a",
+      "descripcion": "v",
+      "categoria": "Software",
+      "nivel_urgencia": "Media",
+      "fecha_registro": "2025-12-13",
+      "ubicacion": "A302",
+      "estado": "Abierta",
+      "comentarios": [],
+      "id": 16
+    },
+    {
+      "usuarioId": 2,
+      "titulo": "a",
+      "descripcion": "v",
+      "categoria": "Software",
+      "nivel_urgencia": "Media",
+      "fecha_registro": "2025-12-13",
+      "ubicacion": "A302",
+      "estado": "Abierta",
+      "comentarios": [],
+      "id": 17
+    },
+    {
+      "usuarioId": 2,
+      "titulo": "a",
+      "descripcion": "a",
+      "categoria": "Hardware",
+      "nivel_urgencia": "Media",
+      "fecha_registro": "2025-12-13",
+      "ubicacion": "a",
+      "estado": "Abierta",
+      "comentarios": [],
+      "id": 18
+    },
+    {
+      "usuarioId": 2,
+      "titulo": "a",
+      "descripcion": "PruebaCarlos",
+      "categoria": "Hardware",
+      "nivel_urgencia": "Media",
+      "fecha_registro": "2025-12-13",
+      "ubicacion": "a",
+      "estado": "Abierta",
+      "comentarios": [],
+      "id": 19
+    },
+    {
+      "usuarioId": {
+        "id": 2,
+        "nombre": "Carlos",
+        "email": "carlos.perez@educastur.org",
+        "password": "$2y$10$L2gyx2oL8Gk6gYVukI.v2.63s7/jRtQQZNS4dq3QYPLfVj8zUVXI2",
+        "rol": {
+          "id": 1,
+          "nombre_rol": "comun",
+          "descripcion": "Usuario regular del sistema"
+        },
+        "fecha_registro": "2025-10-21"
+      },
+      "titulo": "12",
+      "descripcion": "PruebaCarlos",
+      "categoria": "Hardware",
+      "nivel_urgencia": "Media",
+      "fecha_registro": "2025-12-13",
+      "ubicacion": "a",
+      "estado": "Abierta",
+      "comentarios": [],
+      "id": 20
+    },
+    {
+      "usuarioId": {
+        "id": 2,
+        "nombre": "Carlos",
+        "email": "carlos.perez@educastur.org",
+        "password": "$2y$10$L2gyx2oL8Gk6gYVukI.v2.63s7/jRtQQZNS4dq3QYPLfVj8zUVXI2",
+        "rol": {
+          "id": 1,
+          "nombre_rol": "comun",
+          "descripcion": "Usuario regular del sistema"
+        },
+        "fecha_registro": "2025-10-21"
+      },
+      "titulo": "12",
+      "descripcion": "PruebaCarlos",
+      "categoria": "Hardware",
+      "nivel_urgencia": "Media",
+      "fecha_registro": "2025-12-13",
+      "ubicacion": "a",
+      "estado": "Abierta",
+      "comentarios": [],
+      "id": 21
     }
   ],
   "users": [

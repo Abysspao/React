@@ -1,0 +1,11 @@
+/* login.css
+   Reutiliza las clases definidas en forms.css:
+     - .text-tituloperzonalizado-naranja → color del título
+     - .bg-azul-pastel                  → fondo de la card
+   Solo añadimos el tamaño de la card del login.
+*/
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+}
