@@ -400,11 +400,7 @@
       "nombre": "Ana",
       "email": "ana.lopez@educastur.org",
       "password": "$2y$10$paOaxwKhEBC4W/cVeG85puc9W/hoMlzquXQ/6hrMD6VdqIc/mEToq",
-      "rol": {
-        "id": 1,
-        "nombre_rol": "comun",
-        "descripcion": "Usuario regular del sistema"
-      },
+      "rol": "usuario",
       "fecha_registro": "2025-10-21"
     },
     {
@@ -526,6 +522,14 @@
         "descripcion": "Administrador del sistema con permisos totales"
       },
       "fecha_registro": "2025-10-21"
+    },
+    {
+      "email": "miau@miau.com",
+      "password": "$2a$10$llpKsAqEehv5QGmmqk2DceiClOWgQA.isdZuFwjdfR08J3YjXp91e",
+      "rol": {
+        "nombre_rol": "usuario"
+      },
+      "id": 23
     }
   ],
   "roles": [
