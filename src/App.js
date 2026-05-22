@@ -7,6 +7,18 @@ import Form from './Forms';
 import Fondo from './Imagenes/fondo.jpg';
 import Login from './Login';
 import { jwtDecode } from "jwt-decode";
+import { Routes, Route } from 'react-router-dom';
+import Menu from './menu';
+import GestUsers from './GestUsers';
+
+function Inicio() {
+  return (
+    <div className="text-center mt-5">
+      <h3 style={{ color: "#f0f0f0" }}>Bienvenido a la aplicación</h3>
+      <p style={{ color: "#f0f0f0" }}>Usa el menú para navegar.</p>
+    </div>
+  );
+}
 
 function App() {
   const INCIDENCIA_API_URL = 'http://localhost:3210/incidencias';
@@ -22,7 +34,6 @@ function App() {
         let response = await fetch(INCIDENCIA_API_URL);
         if (!response.ok) throw new Error("HTTP Error");
         const data = await response.json();
-        console.log(data);
         setIncidencia(data);
       } catch (e) {
         console.error("Error al cargar las incidencias:", e);
@@ -34,7 +45,6 @@ function App() {
         let response = await fetch(USUARIO_API_URL);
         if (!response.ok) throw new Error("HTTP Error");
         const data = await response.json();
-        console.log(data);
         setUsuarios(data);
       } catch (e) {
         console.error("Error al cargar los usuarios:", e);
@@ -45,13 +55,11 @@ function App() {
     obtenerUsuarios();
   }, []);
 
-  // PERSISTENCIA : cuando se carga la app se comprueba si hay token para si hay decodificarlo e iniciar sesion con el email
   useEffect(() => {
     const obtenerUsuarioLogueado = () => {
       const savedToken = localStorage.getItem('authToken');
       if (savedToken) {
         const decodedUser = jwtDecode(savedToken);
-        console.log(decodedUser);
         if (decodedUser) {
           const user = usuarios.find((u) => u.email === decodedUser.email);
           user ? setUsuarioLogueado(user) : setUsuarioLogueado(null);
@@ -60,14 +68,11 @@ function App() {
     };
     obtenerUsuarioLogueado();
   }, [usuarios]);
-  //////////////////////////////////////////////////////////////////////////
 
-  // PERSISTENCIA : Cuando se inicia sesion el server devuelve el token y los datos guardando solo el token por seguridad
   const onLogin = (userData) => {
     localStorage.setItem("authToken", JSON.stringify(userData["accessToken"]));
     setUsuarioLogueado(userData.user);
   };
-  //////////////////////////////////////////////////////////////////////////
 
   const agregarIncidencia = async (nuevo_usuario, nuevo_titulo, nuevo_descripcion, nuevo_categoria, nuevo_nivel_urgencia, nuevo_ubicacion) => {
     try {
@@ -100,7 +105,6 @@ function App() {
         if (!response.ok) throw new Error(`Fallo la petición POST. Estado HTTP: ${response.status}`);
 
         let data = await response.json();
-        console.log("nueva incidencia", data);
         setIncidencia([...incidencias, data]);
       } else {
         alert("No se puede crear incidencia. (Usuario no encontrado)");
@@ -111,6 +115,33 @@ function App() {
     }
   };
 
+  const actualizarRol = async (id, nuevoRol) => {
+    try {
+      await fetch(`${USUARIO_API_URL}/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rol: nuevoRol })
+      });
+      setUsuarios(usuarios.map(u => u.id === id ? { ...u, rol: nuevoRol } : u));
+    } catch (e) {
+      console.error("Error al actualizar rol:", e);
+    }
+  };
+
+  const agregarUsuario = async (nuevoUsuario) => {
+    try {
+      let response = await fetch(USUARIO_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(nuevoUsuario)
+      });
+      let data = await response.json();
+      setUsuarios([...usuarios, data]);
+    } catch (e) {
+      console.error("Error al agregar usuario:", e);
+    }
+  };
+
   if (!usuarioLogueado) {
     return <Login onLoginExitoso={onLogin} />;
   }
@@ -118,34 +149,36 @@ function App() {
   return (
     <div style={{ backgroundImage: `url(${Fondo})`, backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundAttachment: "fixed", minHeight: "100vh" }}>
       <Header />
-      <div className="d-flex justify-content-end pe-4 pt-2">
-        <span style={{ color: "#f0f0f0" }} className="me-3">
-          👤 {usuarioLogueado.email}
-        </span>
 
-        {/* PERSISTENCIA : Al cerrar sesion se borra el token para que no se guarde el user */}
-        <button
-          className="btn btn-sm"
-          style={{ backgroundColor: "#ee9a13ff", color: "#fff" }}
-          onClick={() => {
-            localStorage.removeItem('authToken');
-            setUsuarioLogueado(null);
-          }}
-        >
-          Cerrar sesión
-        </button>
-        {/*////////////////////////////////////////////////////////////////////////// */}
+      <Menu
+        usuarioLogueado={usuarioLogueado}
+        onCerrarSesion={() => {
+          localStorage.removeItem('authToken');
+          setUsuarioLogueado(null);
+        }}
+      />
 
-      </div>
       <h2 className="mb-4 text-center" style={{ color: "#f0f0f0" }}>Mi aplicación</h2>
-      <div className="container-fluid mt-4 row">
-        <main className="col-md-6">
-          <MiLista incidencias={incidencias} />
-        </main>
-        <aside className="col-md-6">
-          <Form agregarIncidencia={agregarIncidencia} />
-        </aside>
+
+      <div className="container-fluid mt-4">
+        <Routes>
+          <Route path="/inicio" element={<Inicio />} />
+          <Route path="/milista" element={<MiLista incidencias={incidencias} />} />
+          <Route path="/form" element={<Form agregarIncidencia={agregarIncidencia} />} />
+          <Route
+            path="/usuarios"
+            element={
+              <GestUsers
+                usuarios={usuarios}
+                onActualizarRol={actualizarRol}
+                onAgregarUsuario={agregarUsuario}
+              />
+            }
+          />
+          <Route path="*" element={<Inicio />} />
+        </Routes>
       </div>
+
       <Footer />
     </div>
   );
